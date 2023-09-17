@@ -1,6 +1,6 @@
 # codescanchange_webpack_plugin
 
-![codescanchange_webpack_plugin](https://imgse.com/i/pPhVnnP)
+![codescanchange_webpack_plugin](https://z1.ax1x.com/2023/09/17/pPhVnnP.png)
 
 <p>
 支持webpack4+ / 5+(不区分react或vue,只处理构建后的代码);
