@@ -44,6 +44,7 @@ class codescanchange_webpack_plugin{
         
                             _suffix = _suffix[_suffix.length - 1];
         
+                          
                             if(_fileName.indexOf(_ops[n].distFileName) > -1){
                                 if(_suffix === 'js'){
                             
@@ -54,15 +55,18 @@ class codescanchange_webpack_plugin{
                                     }
                                     _buffer = _compiler.inputFileSystem.readFileSync(_filePath);
                                     _replaceStr = _buffer.toString();
-                                    while(_isEnd){
-                                        if(_replaceStr.indexOf(_ops.targetCode) < 0){
-                                            _isEnd = false;
-                                        }else{
-                                            _replaceStr = _replaceStr.replace(_ops.targetCode, _ops.replaceCode);
+
+                                    for(let tcodeInx = 0;tcodeInx < _ops[n].targetCode.length;tcodeInx++){
+                                        _isEnd = true;
+                                        while(_isEnd){
+                                            if(_replaceStr.indexOf(_ops[n].targetCode[tcodeInx]) < 0){
+                                                _isEnd = false;
+                                            }else{
+                                                _replaceStr = _replaceStr.replace(_ops[n].targetCode[tcodeInx], _ops[n].replaceCode[tcodeInx]);
+                                            }
+                                            //_replaceStr = _replaceStr.replace(new RegExp(_ops.targetCode, 'g'), _ops.replaceCode);
                                         }
-                                        //_replaceStr = _replaceStr.replace(new RegExp(_ops.targetCode, 'g'), _ops.replaceCode);
                                     }
-                                    
                                     _compiler.outputFileSystem.writeFile(_filePath,_replaceStr,function(){}); 
         
                                 }
@@ -89,7 +93,7 @@ class codescanchange_webpack_plugin{
                 _suffix = _suffix[_suffix.length - 1];
     
                 for(let n = 0;n<_ops.length;n++){
-                    if(_targetPath.indexOf(_ops.distFileName) > -1){
+                    if(_targetPath.indexOf(_ops[n].distFileName) > -1){
                         if(_suffix === 'js'){
                             let _filePath = _targetPath;
                             /* if(!_filePath){
@@ -100,13 +104,17 @@ class codescanchange_webpack_plugin{
                             _replaceStr = _buffer.toString();
                             //_replaceStr = _replaceStr.replace(new RegExp(_ops.targetCode, 'g'), _ops.replaceCode);
                             //_replaceStr = _replaceStr.replace(/_ops.targetCode/g, _ops.replaceCode);
-                            while(_isEnd){
-                                if(_replaceStr.indexOf(_ops.targetCode) < 0){
-                                    _isEnd = false;
-                                }else{
-                                    _replaceStr = _replaceStr.replace(_ops.targetCode, _ops.replaceCode);
+
+                            for(let tcodeInx = 0;tcodeInx < _ops[n].targetCode.length;tcodeInx++){
+                                _isEnd = true;
+                                while(_isEnd){
+                                    if(_replaceStr.indexOf(_ops[n].targetCode[tcodeInx]) < 0){
+                                        _isEnd = false;
+                                    }else{
+                                        _replaceStr = _replaceStr.replace(_ops[n].targetCode[tcodeInx], _ops[n].replaceCode[tcodeInx]);
+                                    }
+                                
                                 }
-                               
                             }
                             //_replaceStr = 'console.log(1234567890);' + _replaceStr;
                             _compiler.outputFileSystem.writeFile(_filePath,_replaceStr,function(){}); 
