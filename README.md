@@ -43,6 +43,9 @@ yarn install codescanchange_webpack_plugin -S -D
 | targetCode         | 想要替换的代码 |
 | replaceCode       | replace后的代码 |
 
+
+参数必须是一个数组 + 对象的形式，方便一次性配置多个参数;
+
 ## 使用方法[⬆](#目录)<!-- Link generated with jump2header -->
 ### 引入插件
 ```javascript
@@ -55,11 +58,11 @@ const codescanchange_webpack_plugin = require("codescanchange_webpack_plugin");
 ```javascript
 
 ///在plugin中加入
-new codescanchange_webpack_plugin( {
+new codescanchange_webpack_plugin([{
     "distFileName":"chunk-vendors",
     "targetCode":"this.hoverTimer=setTimeout(this.clearHoverZone,this.panel.config.hoverThreshold)",
     "replaceCode":"console.log('trfchange')"
-})
+}])
 
 ///vuecli3+参见vue.config,例如
 configureWebpack: {
