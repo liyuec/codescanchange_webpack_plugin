@@ -77,16 +77,17 @@ configureWebpack: {
 ```javascript
 
 ///在plugin中直接加入多个new 引入
-new codescanchange_webpack_plugin( {
-    "distFileName":"app",
-    "targetCode":"want to change code",
-    "replaceCode":"change code"
-})
-
-new codescanchange_webpack_plugin( {
-    "distFileName":"chunk-vendors",
-    "targetCode":"[1]want to change code",
-    "replaceCode":"[1]change code"
-})
+new codescanchange_webpack_plugin([
+    {
+        "distFileName":"app",
+        "targetCode":"want to change code",
+        "replaceCode":"change code"
+    },
+    {
+        "distFileName":"other",
+        "targetCode":"other code",
+        "replaceCode":"other code to change code"
+    },
+])
 
 ```
