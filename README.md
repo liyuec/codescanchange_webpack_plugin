@@ -39,9 +39,9 @@ yarn install codescanchange_webpack_plugin -S -D
 
 | 参数名            | 描述 |
 | ---------------- | ----------- |
-| distFileName          | 模糊匹配的构建后代码名，比如vendors则匹配文件名中存在 vendors 的.js |
-| targetCode         | 想要替换的代码 |
-| replaceCode       | replace后的代码 |
+| distFileName          | 模糊匹配的构建后代码名，比如vendors则匹配文件名中存在 vendors 的.js（String类型） |
+| targetCode         | 想要替换的代码(Array<String>) |
+| replaceCode       | replace后的代码 (Array<String>)|
 
 
 参数必须是一个数组 + 对象的形式，方便一次性配置多个参数;
@@ -60,8 +60,8 @@ const codescanchange_webpack_plugin = require("codescanchange_webpack_plugin");
 ///在plugin中加入
 new codescanchange_webpack_plugin([{
     "distFileName":"chunk-vendors",
-    "targetCode":"this.hoverTimer=setTimeout(this.clearHoverZone,this.panel.config.hoverThreshold)",
-    "replaceCode":"console.log('trfchange')"
+    "targetCode":["this.hoverTimer=setTimeout(this.clearHoverZone,this.panel.config.hoverThreshold)"],
+    "replaceCode":["console.log('trfchange')"]
 }])
 
 ///vuecli3+参见vue.config,例如
@@ -69,8 +69,8 @@ configureWebpack: {
     plugins: [
         {
             "distFileName":"chunk-vendors",
-            "targetCode":"this.hoverTimer=setTimeout(this.clearHoverZone,this.panel.config.hoverThreshold)",
-            "replaceCode":"console.log('trfchange')"
+            "targetCode":["this.hoverTimer=setTimeout(this.clearHoverZone,this.panel.config.hoverThreshold)"],
+            "replaceCode":["console.log('trfchange')"]
         }
     ]
 }
@@ -83,14 +83,15 @@ configureWebpack: {
 new codescanchange_webpack_plugin([
     {
         "distFileName":"app",
-        "targetCode":"want to change code",
-        "replaceCode":"change code"
+        "targetCode":["want to change code","wang to change code 2"],
+        "replaceCode":["change code","change code 2"]
     },
     {
         "distFileName":"other",
-        "targetCode":"other code",
-        "replaceCode":"other code to change code"
+        "targetCode":["other code"],
+        "replaceCode":["other code to change code"]
     },
+    ...
 ])
 
 ```

@@ -10,16 +10,20 @@ class codescanchange_webpack_plugin{
             }
         ]
     */
-    constructor(options){
+    constructor(isgo,options){
         if(options.constructor !== Array){
             throw new Error('must be a Array');
         }
+        this.$isGo = isgo;
         this.$options = options || [];
         console.log(`Webpack version: ${webpackVersion}`);
         this.$options.webpackVersion = [...webpackVersion][0]
     }
 
     apply(compiler){
+        if(!this.$isGo){
+            return
+        }
         let _compiler = compiler;
 
         if(this.$options.webpackVersion === '4'){
