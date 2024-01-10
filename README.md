@@ -39,6 +39,7 @@ yarn install codescanchange_webpack_plugin -S -D
 
 | 参数名            | 描述 |
 | ---------------- | ----------- |
+| isChange          | 是否开始charge code，这里比如可以判断是否是pro的情况 |
 | distFileName          | 模糊匹配的构建后代码名，比如vendors则匹配文件名中存在 vendors 的.js（String类型） |
 | targetCode         | 想要替换的代码(Array<String>) |
 | replaceCode       | replace后的代码 (Array<String>)|
@@ -58,7 +59,9 @@ const codescanchange_webpack_plugin = require("codescanchange_webpack_plugin");
 ```javascript
 
 ///在plugin中加入
-new codescanchange_webpack_plugin([{
+const debug = process.env.NODE_ENV !== 'development'
+
+new codescanchange_webpack_plugin(debug,[{
     "distFileName":"chunk-vendors",
     "targetCode":["this.hoverTimer=setTimeout(this.clearHoverZone,this.panel.config.hoverThreshold)"],
     "replaceCode":["console.log('trfchange')"]
@@ -80,7 +83,8 @@ configureWebpack: {
 ```javascript
 
 ///在plugin中直接加入多个new 引入
-new codescanchange_webpack_plugin([
+const debug = process.env.NODE_ENV !== 'development'
+new codescanchange_webpack_plugin(debug,[
     {
         "distFileName":"app",
         "targetCode":["want to change code","wang to change code 2"],
